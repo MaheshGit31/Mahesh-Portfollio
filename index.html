@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mahesh Parepalli — Media Production &amp; Marketing</title>
+<meta name="description" content="Mahesh Parepalli — media production and marketing. Graphic design, video editing, video production, photo editing, and marketing." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Filmic color-grade palette: teal shadows, orange highlights, ink base */
+    --ink:        #090D15;
+    --ink-2:      #0E1420;
+    --surface:    #131A28;
+    --surface-2:  #182130;
+    --line:       rgba(255,255,255,0.08);
+    --line-2:     rgba(255,255,255,0.14);
+    --text:       #E9EDF4;
+    --text-dim:   #929DB2;
+    --text-faint: #5C6479;
+    --teal:       #27C7CC;
+    --teal-soft:  rgba(39,199,204,0.14);
+    --orange:     #FF7A3D;
+    --orange-soft:rgba(255,122,61,0.14);
+
+    --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body: "Inter", system-ui, -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+    --maxw: 1080px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(255,122,61,0.10), transparent 60%),
+      radial-gradient(1000px 700px at -10% 20%, rgba(39,199,204,0.10), transparent 55%),
+      var(--ink);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  .mono { font-family: var(--mono); }
+
+  /* ---- Timecode top bar ---- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(9,13,21,0.72);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .brand-mini {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em;
+    color: var(--text-dim);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .rec-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 0 0 rgba(255,122,61,0.6);
+    animation: rec 2.4s ease-out infinite;
+  }
+  @keyframes rec {
+    0% { box-shadow: 0 0 0 0 rgba(255,122,61,0.5); }
+    70% { box-shadow: 0 0 0 7px rgba(255,122,61,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,122,61,0); }
+  }
+  .nav-links { display: flex; gap: 22px; }
+  .nav-links a {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em;
+    color: var(--text-dim); transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  @media (max-width: 640px){ .nav-links { display: none; } }
+
+  /* ---- Hero ---- */
+  .hero { padding: 92px 0 64px; position: relative; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 22px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .eyebrow::before {
+    content: ""; width: 34px; height: 1px; background: var(--teal); opacity: .7;
+  }
+  h1.name {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(3.2rem, 11vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+  }
+  h1.name .grade {
+    background: linear-gradient(100deg, var(--teal), var(--orange) 85%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-role {
+    font-family: var(--display); font-weight: 500;
+    font-size: clamp(1.15rem, 3.4vw, 1.75rem);
+    color: var(--text); margin: 18px 0 0; letter-spacing: -0.01em;
+  }
+  .hero-sub {
+    max-width: 560px; color: var(--text-dim); margin-top: 16px; font-size: 1.02rem;
+  }
+  .handle {
+    display: inline-block; margin-top: 26px;
+    font-family: var(--mono); font-size: 13px; color: var(--text-dim);
+    border: 1px solid var(--line-2); border-radius: 999px;
+    padding: 7px 16px;
+  }
+  .handle b { color: var(--orange); font-weight: 500; }
+
+  /* scrub timeline under hero */
+  .scrub {
+    margin-top: 54px; position: relative; height: 46px;
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    display: flex; align-items: center;
+    background:
+      repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 64px);
+  }
+  .scrub .playhead {
+    position: absolute; top: -1px; bottom: -1px; left: 0;
+    width: 2px; background: var(--orange);
+    box-shadow: 0 0 12px rgba(255,122,61,0.7);
+    animation: scrub 9s linear infinite;
+  }
+  .scrub .playhead::before {
+    content: ""; position: absolute; top: -5px; left: -5px;
+    border-left: 6px solid transparent; border-right: 6px solid transparent;
+    border-top: 7px solid var(--orange);
+  }
+  @keyframes scrub { from { left: 0; } to { left: 100%; } }
+  .scrub-tc {
+    font-family: var(--mono); font-size: 11px; color: var(--text-dim);
+    padding-left: 12px; letter-spacing: 0.05em;
+  }
+
+  /* ---- Section scaffolding ---- */
+  section { padding: 72px 0; }
+  .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 34px; flex-wrap: wrap; }
+  .sec-index {
+    font-family: var(--mono); font-size: 12px; color: var(--teal);
+    letter-spacing: 0.1em;
+  }
+  h2.sec-title {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.7rem, 5vw, 2.6rem); letter-spacing: -0.02em; margin: 0;
+  }
+  .sec-note { color: var(--text-dim); font-size: 0.95rem; margin-left: auto; }
+
+  /* ---- Skills as editor tracks ---- */
+  .tracks { display: flex; flex-direction: column; gap: 12px; }
+  .track {
+    display: grid; grid-template-columns: 118px 1fr; align-items: stretch;
+    border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+    background: var(--surface);
+    transition: border-color .25s, transform .25s, background .25s;
+  }
+  .track:hover { border-color: var(--line-2); transform: translateX(4px); background: var(--surface-2); }
+  .track-label {
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+    color: var(--ink); font-weight: 700;
+    background: linear-gradient(180deg, var(--teal), #1aa6ab);
+  }
+  .track:nth-child(even) .track-label { background: linear-gradient(180deg, var(--orange), #e2622a); }
+  .track-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 4px; }
+  .track-name {
+    font-family: var(--display); font-weight: 700; font-size: 1.2rem; letter-spacing: -0.01em;
+  }
+  .track-desc { color: var(--text-dim); font-size: 0.94rem; }
+  .clip-row { display: flex; gap: 5px; margin-top: 10px; }
+  .clip {
+    height: 5px; border-radius: 3px; background: var(--line-2);
+  }
+  .track:hover .clip { background: var(--teal); opacity: .55; }
+  .track:nth-child(even):hover .clip { background: var(--orange); opacity: .55; }
+  @media (max-width: 560px){
+    .track { grid-template-columns: 76px 1fr; }
+    .track-label { font-size: 10px; }
+  }
+
+  /* ---- About: metadata panel ---- */
+  .meta-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+  }
+  .meta-cell { background: var(--ink-2); padding: 22px 24px; }
+  .meta-key {
+    font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--teal); margin-bottom: 8px;
+  }
+  .meta-val { font-size: 1.05rem; color: var(--text); font-weight: 500; }
+  .meta-val small { display: block; color: var(--text-dim); font-weight: 400; font-size: 0.85rem; margin-top: 3px; }
+
+  /* ---- Certifications ---- */
+  .cert-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;
+  }
+  .cert-card {
+    border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+    padding: 20px 22px; transition: border-color .2s, transform .2s;
+  }
+  .cert-card:hover { border-color: var(--teal); transform: translateY(-3px); }
+  .cert-title { font-family: var(--display); font-weight: 700; font-size: 1.1rem; }
+  .cert-issuer { color: var(--text-dim); font-size: 0.92rem; margin-top: 4px; }
+  .cert-year { font-family: var(--mono); font-size: 11px; color: var(--orange); margin-top: 12px; letter-spacing: 0.06em; }
+  .cert-link { font-family: var(--mono); font-size: 11px; color: var(--teal); margin-top: 6px; display: inline-block; }
+  .cert-empty {
+    border: 1px dashed var(--line-2); border-radius: 14px;
+    padding: 40px 28px; text-align: center; color: var(--text-dim);
+  }
+  .cert-empty .tc { font-family: var(--mono); font-size: 12px; color: var(--teal); letter-spacing: 0.1em; }
+  .cert-empty h3 { font-family: var(--display); color: var(--text); margin: 14px 0 8px; font-weight: 700; }
+
+  /* ---- Channels ---- */
+  .chan-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px;
+  }
+  .chan {
+    display: flex; align-items: center; gap: 16px;
+    border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+    padding: 16px 18px; transition: border-color .2s, background .2s, transform .2s;
+  }
+  .chan:hover { border-color: var(--line-2); background: var(--surface-2); transform: translateY(-2px); }
+  .chan .ic {
+    width: 40px; height: 40px; flex: 0 0 40px; border-radius: 10px;
+    display: grid; place-items: center; background: var(--ink);
+    border: 1px solid var(--line-2);
+  }
+  .chan .ic svg { width: 20px; height: 20px; fill: var(--teal); }
+  .chan:hover .ic svg { fill: var(--orange); }
+  .chan-meta { min-width: 0; }
+  .chan-name { font-weight: 600; font-size: 0.98rem; }
+  .chan-handle {
+    font-family: var(--mono); font-size: 11.5px; color: var(--text-dim);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  /* ---- Contact ---- */
+  .contact-panel {
+    border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+    background: linear-gradient(180deg, var(--surface), var(--ink-2));
+  }
+  .contact-primary {
+    padding: 32px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .badge-pref {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink); background: var(--orange);
+    padding: 4px 10px; border-radius: 6px; font-weight: 700;
+  }
+  .contact-primary .who { font-family: var(--display); font-weight: 700; font-size: 1.5rem; }
+  .contact-primary .who small { display:block; color: var(--text-dim); font-family: var(--body); font-weight: 400; font-size: 0.9rem; }
+  .contact-secondary { display: grid; grid-template-columns: 1fr 1fr; }
+  .contact-secondary a {
+    padding: 22px 32px; transition: background .2s;
+  }
+  .contact-secondary a:first-child { border-right: 1px solid var(--line); }
+  .contact-secondary a:hover { background: var(--surface-2); }
+  .contact-secondary .k { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); }
+  .contact-secondary .v { font-size: 1.05rem; margin-top: 6px; }
+  @media (max-width: 520px){ .contact-secondary { grid-template-columns: 1fr; } .contact-secondary a:first-child { border-right: none; border-bottom: 1px solid var(--line); } }
+
+  /* ---- Footer ---- */
+  footer {
+    border-top: 1px solid var(--line); padding: 34px 0 48px;
+    display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  footer .fmono { font-family: var(--mono); font-size: 12px; color: var(--text-dim); letter-spacing: 0.04em; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand-mini"><span class="rec-dot"></span> MAHESH&nbsp;PAREPALLI</div>
+      <nav class="nav-links">
+        <a href="#work">SKILLS</a>
+        <a href="#about">ABOUT</a>
+        <a href="#certs">CERTS</a>
+        <a href="#channels">CHANNELS</a>
+        <a href="#contact">CONTACT</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Media Production &amp; Marketing</span>
+      <h1 class="name">Mahesh<br /><span class="grade">Parepalli</span></h1>
+      <p class="hero-role">I shoot it, cut it, grade it, and get it seen.</p>
+      <p class="hero-sub">From the first frame to the final campaign — building video, design, and marketing that people actually stop to watch.</p>
+      <div><span class="handle mono">a.k.a. <b>YourAveragePerson</b></span></div>
+
+      <div class="scrub" aria-hidden="true">
+        <span class="scrub-tc mono">TIMELINE · 24fps</span>
+        <div class="playhead"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SKILLS -->
+  <section id="work">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-index mono">01 / TRACKS</span>
+        <h2 class="sec-title">Core Skills</h2>
+        <span class="sec-note">Layered like a timeline — every project runs on all five.</span>
+      </div>
+
+      <div class="tracks">
+        <div class="track reveal">
+          <div class="track-label mono">V1</div>
+          <div class="track-body">
+            <div class="track-name">Video Production</div>
+            <div class="track-desc">Concept to final cut — planning shots, directing, lighting, and capturing footage built to hold attention.</div>
+            <div class="clip-row"><span class="clip" style="flex:3"></span><span class="clip" style="flex:1.4"></span><span class="clip" style="flex:2"></span></div>
+          </div>
+        </div>
+
+        <div class="track reveal">
+          <div class="track-label mono">V2</div>
+          <div class="track-body">
+            <div class="track-name">Video Editing</div>
+            <div class="track-desc">Cutting for pace and story — assembling raw footage, motion, sound, and rhythm into a finished piece.</div>
+            <div class="clip-row"><span class="clip" style="flex:2"></span><span class="clip" style="flex:2.5"></span><span class="clip" style="flex:1"></span><span class="clip" style="flex:1.5"></span></div>
+          </div>
+        </div>
+
+        <div class="track reveal">
+          <div class="track-label mono">GFX</div>
+          <div class="track-body">
+            <div class="track-name">Graphic Design</div>
+            <div class="track-desc">Thumbnails, brand assets, overlays, and layouts — visuals designed to earn the click and read clean at any size.</div>
+            <div class="clip-row"><span class="clip" style="flex:1.5"></span><span class="clip" style="flex:2"></span><span class="clip" style="flex:2.5"></span></div>
+          </div>
+        </div>
+
+        <div class="track reveal">
+          <div class="track-label mono">RAW</div>
+          <div class="track-body">
+            <div class="track-name">Photo Editing</div>
+            <div class="track-desc">Retouching, color grading, and compositing — dialing every image to the exact mood the shot needs.</div>
+            <div class="clip-row"><span class="clip" style="flex:2.5"></span><span class="clip" style="flex:1"></span><span class="clip" style="flex:2"></span></div>
+          </div>
+        </div>
+
+        <div class="track reveal">
+          <div class="track-label mono">MKT</div>
+          <div class="track-body">
+            <div class="track-name">Marketing</div>
+            <div class="track-desc">Content strategy, audience growth, and campaigns — turning good work into reach, engagement, and results.</div>
+            <div class="clip-row"><span class="clip" style="flex:1"></span><span class="clip" style="flex:3"></span><span class="clip" style="flex:1.8"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-index mono">02 / METADATA</span>
+        <h2 class="sec-title">About</h2>
+      </div>
+      <div class="meta-grid reveal">
+        <div class="meta-cell">
+          <div class="meta-key mono">Based in</div>
+          <div class="meta-val">Texas, USA</div>
+        </div>
+        <div class="meta-cell">
+          <div class="meta-key mono">Origin</div>
+          <div class="meta-val">India<small>Where it all started</small></div>
+        </div>
+        <div class="meta-cell">
+          <div class="meta-key mono">Date of birth</div>
+          <div class="meta-val">April 21</div>
+        </div>
+        <div class="meta-cell">
+          <div class="meta-key mono">Languages</div>
+          <div class="meta-val">English<small>Formal · fluent</small></div>
+        </div>
+        <div class="meta-cell">
+          <div class="meta-key mono">Also speaks</div>
+          <div class="meta-val">Spanish<small>Conversational — un poco</small></div>
+        </div>
+        <div class="meta-cell">
+          <div class="meta-key mono">Working in</div>
+          <div class="meta-val">Media &amp; Marketing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certs">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-index mono">03 / CREDENTIALS</span>
+        <h2 class="sec-title">Certifications</h2>
+        <span class="sec-note">Added over time — see below to add your own.</span>
+      </div>
+      <div id="certContainer" class="reveal"></div>
+    </div>
+  </section>
+
+  <!-- CHANNELS -->
+  <section id="channels">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-index mono">04 / OUTPUTS</span>
+        <h2 class="sec-title">Channels</h2>
+        <span class="sec-note">Where the work lives.</span>
+      </div>
+      <div class="chan-grid">
+
+        <a class="chan reveal" href="https://www.youtube.com/@YourAveragePersonReal" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M23 12s0-3.8-.5-5.6a2.9 2.9 0 0 0-2-2C18.7 4 12 4 12 4s-6.7 0-8.5.4a2.9 2.9 0 0 0-2 2C1 8.2 1 12 1 12s0 3.8.5 5.6a2.9 2.9 0 0 0 2 2C5.3 20 12 20 12 20s6.7 0 8.5-.4a2.9 2.9 0 0 0 2-2C23 15.8 23 12 23 12zM9.75 15.5v-7l6 3.5-6 3.5z"/></svg></span>
+          <span class="chan-meta"><span class="chan-name">YouTube</span><span class="chan-handle mono">@YourAveragePersonReal</span></span>
+        </a>
+
+        <a class="chan reveal" href="https://www.twitch.tv/youraveragepersonreal/about" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 2 3 6v13h4v3h3l3-3h4l5-5V2H4zm16 10-3 3h-4l-3 3v-3H7V4h13v8zM16 7h-2v5h2V7zm-5 0H9v5h2V7z"/></svg></span>
+          <span class="chan-meta"><span class="chan-name">Twitch</span><span class="chan-handle mono">youraveragepersonreal</span></span>
+        </a>
+
+        <a class="chan reveal" href="https://www.instagram.com/youraveragepersonreal/" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 0 4.1.1 1 0 1.7.2 2.3.5.6.2 1.1.5 1.6 1s.8 1 1 1.6c.3.6.4 1.3.5 2.3C21.7 8.7 21.7 9 21.7 12s0 3.3-.1 4.4c0 1-.2 1.7-.5 2.3-.2.6-.5 1.1-1 1.6s-1 .8-1.6 1c-.6.3-1.3.4-2.3.5-1.1.1-1.4.1-4.2.1s-3.1 0-4.2-.1c-1 0-1.7-.2-2.3-.5a4.3 4.3 0 0 1-1.6-1c-.5-.5-.8-1-1-1.6-.3-.6-.4-1.3-.5-2.3C2.3 15.3 2.3 15 2.3 12s0-3.3.1-4.4c0-1 .2-1.7.5-2.3.2-.6.5-1.1 1-1.6s1-.8 1.6-1c.6-.3 1.3-.4 2.3-.5C8.9 2 9.2 2 12 2zm0 1.8c-2.7 0-3 0-4 .1-.8 0-1.2.2-1.5.3-.4.1-.6.3-.9.6-.3.3-.5.5-.6.9-.1.3-.3.7-.3 1.5-.1 1-.1 1.3-.1 4s0 3 .1 4c0 .8.2 1.2.3 1.5.1.4.3.6.6.9.3.3.5.5.9.6.3.1.7.3 1.5.3 1 .1 1.3.1 4 .1s3 0 4-.1c.8 0 1.2-.2 1.5-.3.4-.1.6-.3.9-.6.3-.3.5-.5.6-.9.1-.3.3-.7.3-1.5.1-1 .1-1.3.1-4s0-3-.1-4c0-.8-.2-1.2-.3-1.5a2.4 2.4 0 0 0-.6-.9 2.4 2.4 0 0 0-.9-.6c-.3-.1-.7-.3-1.5-.3-1-.1-1.3-.1-4-.1zm0 3.1a5.1 5.1 0 1 1 0 10.2 5.1 5.1 0 0 1 0-10.2zm0 8.4a3.3 3.3 0 1 0 0-6.6 3.3 3.3 0 0 0 0 6.6zm6.5-8.6a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg></span>
+          <span class="chan-meta"><span class="chan-name">Instagram</span><span class="chan-handle mono">@youraveragepersonreal</span></span>
+        </a>
+
+        <a class="chan reveal" href="https://www.linkedin.com/in/mahesh-parepalli-22b719358/" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M20.4 3H3.6A.6.6 0 0 0 3 3.6v16.8c0 .3.3.6.6.6h16.8c.3 0 .6-.3.6-.6V3.6a.6.6 0 0 0-.6-.6zM8.3 18.3H5.5V9.4h2.8v8.9zM6.9 8.2A1.6 1.6 0 1 1 6.9 5a1.6 1.6 0 0 1 0 3.2zm11.4 10.1h-2.8v-4.3c0-1 0-2.4-1.4-2.4s-1.7 1.1-1.7 2.3v4.4H9.6V9.4h2.7v1.2h.1c.4-.7 1.3-1.4 2.6-1.4 2.8 0 3.3 1.8 3.3 4.2v4.9z"/></svg></span>
+          <span class="chan-meta"><span class="chan-name">LinkedIn</span><span class="chan-handle mono">Mahesh Parepalli</span></span>
+        </a>
+
+        <a class="chan reveal" href="https://github.com/MaheshGit31" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.2-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.4 9.4 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.8-4.6 5 .3.3.6.9.6 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></span>
+          <span class="chan-meta"><span class="chan-name">GitHub</span><span class="chan-handle mono">MaheshGit31 · occasional projects</span></span>
+        </a>
+
+        <a class="chan reveal" href="https://discord.com/users/darealmemegodhasrisen" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M19.6 5.6A16.9 16.9 0 0 0 15.4 4l-.3.5c1.5.3 2.8.9 4 1.6a12.9 12.9 0 0 0-11.6 0c1.2-.7 2.6-1.3 4-1.6L11.2 4A16.9 16.9 0 0 0 4.4 5.6C1.7 9.7 1 13.7 1.3 17.7A16.9 16.9 0 0 0 6.5 20l.9-1.3c-.9-.3-1.7-.7-2.5-1.2l.6-.4a12 12 0 0 0 10 0l.6.4c-.8.5-1.6.9-2.5 1.2l.9 1.3a16.9 16.9 0 0 0 5.2-2.3c.4-4.6-.7-8.6-3.6-12.1zM8.5 15.3c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm7 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/></svg></span>
+          <span class="chan-meta"><span class="chan-name">Discord</span><span class="chan-handle mono">@darealmemegodhasrisen</span></span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-index mono">05 / GET IN TOUCH</span>
+        <h2 class="sec-title">Contact</h2>
+      </div>
+      <div class="contact-panel reveal">
+        <div class="contact-primary">
+          <span class="badge-pref mono">Preferred</span>
+          <div class="who">Discord<small>Fastest way to reach me</small></div>
+          <div style="margin-left:auto" class="mono" aria-label="Discord username">@darealmemegodhasrisen</div>
+        </div>
+        <div class="contact-secondary">
+          <a href="tel:+14695842043">
+            <div class="k mono">Call / Text</div>
+            <div class="v mono">+1 469 584 2043</div>
+          </a>
+          <a href="mailto:maheshacked@gmail.com">
+            <div class="k mono">Email</div>
+            <div class="v mono">maheshacked@gmail.com</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <footer>
+      <span class="fmono">© <span id="year"></span> MAHESH PAREPALLI</span>
+      <span class="fmono">EDITED IN THE TIMELINE · YourAveragePerson</span>
+    </footer>
+  </div>
+
+<script>
+  /* =========================================================================
+     ▶ ADD YOUR CERTIFICATIONS HERE
+     -------------------------------------------------------------------------
+     To add a certification, copy one { ... } block below, paste it inside the
+     square brackets, and fill in the details. Keep the commas between blocks.
+     The "link" line is optional — delete that line if there's no link.
+
+     Example of a filled-in certification:
+
+       {
+         title: "Google Ads Certification",
+         issuer: "Google",
+         year: "2024",
+         link: "https://your-credential-url.com"
+       },
+
+     ========================================================================= */
+  const CERTIFICATIONS = [
+
+    // 👇 Add your certifications between the brackets. Delete this comment once you do.
+    // {
+    //   title: "Certification name",
+    //   issuer: "Issued by",
+    //   year: "2025",
+    //   link: "https://..."   // optional
+    // },
+
+  ];
+  /* ===================== END OF EDITABLE SECTION ============================ */
+
+
+  // --- Render certifications (or a friendly empty state) ---
+  (function renderCerts() {
+    const box = document.getElementById('certContainer');
+    if (!Array.isArray(CERTIFICATIONS) || CERTIFICATIONS.length === 0) {
+      box.innerHTML =
+        '<div class="cert-empty">' +
+          '<div class="tc mono">STATUS · AWAITING UPLOAD</div>' +
+          '<h3>No certifications added yet</h3>' +
+          '<p>They\'ll appear here automatically once you add them. Open this file and edit the <span class="mono">CERTIFICATIONS</span> list near the bottom.</p>' +
+        '</div>';
+      return;
+    }
+    const grid = document.createElement('div');
+    grid.className = 'cert-grid';
+    CERTIFICATIONS.forEach(function (c) {
+      const card = document.createElement('div');
+      card.className = 'cert-card';
+      let html = '<div class="cert-title">' + esc(c.title || 'Untitled') + '</div>';
+      if (c.issuer) html += '<div class="cert-issuer">' + esc(c.issuer) + '</div>';
+      if (c.year)   html += '<div class="cert-year mono">' + esc(c.year) + '</div>';
+      if (c.link)   html += '<a class="cert-link mono" href="' + esc(c.link) + '" target="_blank" rel="noopener">VIEW CREDENTIAL →</a>';
+      card.innerHTML = html;
+      grid.appendChild(card);
+    });
+    box.appendChild(grid);
+  })();
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (m) {
+      return ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' })[m];
+    });
+  }
+
+  // --- Year in footer ---
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // --- Scroll reveal ---
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+</script>
+</body>
+</html>
