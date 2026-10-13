@@ -30,17 +30,17 @@ body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16
 .wrap{position:relative;z-index:1;max-width:1180px;margin-inline:auto;padding-inline:20px;padding-block:20px 56px}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--hot);outline-offset:3px;border-radius:6px}
-
+ 
 .top{display:flex;justify-content:flex-end}
 .tbtn{font:600 16px var(--f-mono);background:none;border:1px solid var(--line);color:var(--fg);width:38px;height:38px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
 .tbtn:hover{border-color:var(--hot);color:var(--hot)}
-
+ 
 h1{font-family:var(--f-display);font-weight:800;font-size:clamp(3.2rem,13vw,10.5rem);line-height:.86;letter-spacing:-.045em;margin:clamp(12px,3vw,32px) 0 clamp(28px,5vw,56px);text-wrap:balance}
 h1 .ch{display:inline-block;transition:transform .25s cubic-bezier(.3,1.6,.5,1),color .2s;cursor:default}
 h1 .ch:hover{transform:translateY(-.12em) rotate(-6deg);color:var(--hot)}
 h1 em{font-style:normal;-webkit-text-stroke:2px var(--fg);color:transparent}
 h1 em .ch:hover{color:var(--hot);-webkit-text-stroke-color:var(--hot)}
-
+ 
 .grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
 .card{--mx:50%;--my:50%;position:relative;grid-column:span 2;min-width:0;background:var(--card);border:1px solid var(--line);border-radius:22px;
   text-decoration:none;display:flex;flex-direction:column;overflow:hidden;
@@ -61,50 +61,52 @@ h1 em .ch:hover{color:var(--hot);-webkit-text-stroke-color:var(--hot)}
 .card:hover .arrow{transform:rotate(45deg) scale(1.15)}
 .info{padding:18px 20px 20px;display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
 .info h2{margin:0;font-family:var(--f-display);font-size:1.55rem;line-height:1.1;letter-spacing:-.025em;text-wrap:balance}
+.note{color:var(--mute);font-size:.95rem}
 .host{margin-top:auto;padding-top:8px;font:400 12px var(--f-mono);color:var(--hot);overflow-wrap:anywhere}
-
+ 
 .support{margin-top:16px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px 28px;padding:26px 28px;border-radius:22px;background:var(--hot);color:#12060a;text-decoration:none;transition:transform .2s}
 .support:hover{transform:scale(1.012) rotate(-.4deg)}
 .support h3{margin:0;font-family:var(--f-display);font-size:clamp(1.6rem,4vw,2.5rem);letter-spacing:-.035em;line-height:1}
 .support .go{font:600 14px var(--f-mono);background:#12060a;color:#fff;padding:12px 20px;border-radius:99px;transition:transform .2s}
 .support:hover .go{transform:translateX(6px)}
-
+ 
 @media (max-width:900px){.card,.card.wide{grid-column:span 3}.card.wide{grid-column:span 6}}
 @media (max-width:620px){.card,.card.wide{grid-column:span 6}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#glow{display:none}}
 </style>
-
+ 
 </head>
 <body>
 <canvas id="rain" aria-hidden="true"></canvas>
 <div id="glow" aria-hidden="true"></div>
-
+ 
 <div class="wrap">
   <div class="top"><button class="tbtn" id="theme" type="button" aria-label="switch light or dark theme">◐</button></div>
-
+ 
   <h1 id="title">mahesh<br><em>builds</em> stuff</h1>
-
+ 
   <div class="grid" id="grid"></div>
-
+ 
   <a class="support" href="https://supportme.maheshofficial.uk/" target="_blank" rel="noopener">
     <h3>support me</h3>
     <span class="go">→</span>
   </a>
 </div>
-
+ 
 <script>
 // add new projects here, the page does the rest
 var PROJECTS = [
   {name:"Portfolio", url:"https://portfolio.maheshofficial.uk", glyph:"M.", p1:"#e8470f", p2:"#ffb347", wide:true},
   {name:"Deslopifier", url:"https://deslopify.maheshofficial.uk/", glyph:"sl0p", p1:"#2b2f77", p2:"#7c5cff", small:true},
-  {name:"Cutout", url:"https://cutout.maheshofficial.uk/", alt:"https://removebg.maheshofficial.uk/", glyph:"✂", p1:"#0f6b5c", p2:"#3ee0b5"},
+  {name:"Cutout", url:"https://cutout.maheshofficial.uk/", alt:"https://removebg.maheshofficial.uk/", glyph:"cut", p1:"#0f6b5c", p2:"#3ee0b5"},
   {name:"Shirt Studio", url:"https://studio.maheshofficial.uk/", glyph:"Tee", p1:"#1b4fd8", p2:"#6fd3ff", wide:true},
+  {name:"OpenCanvas", note:"a free alternative to canva", url:"https://opencanvas.maheshofficial.uk", glyph:"Cv", p1:"#6a1fd1", p2:"#ff5fa2", wide:true},
   {name:"Just sign up already!", url:"https://justsignup.maheshofficial.uk/", glyph:"sign up!!", p1:"#b0124a", p2:"#ff7aa8", small:true}
 ];
 var $ = function(s){return document.querySelector(s)};
 var grid = $("#grid");
 var host = function(u){return u.replace(/^https?:\/\//,"").replace(/\/$/,"")};
-
+ 
 PROJECTS.forEach(function(p,i){
   var a = document.createElement("a");
   a.className = "card" + (p.wide?" wide":"");
@@ -112,13 +114,14 @@ PROJECTS.forEach(function(p,i){
   a.style.animationDelay = (i*70)+"ms";
   a.style.setProperty("--p1",p.p1); a.style.setProperty("--p2",p.p2);
   a.innerHTML = '<div class="poster"><span class="arrow">↗</span><div class="glyph'+(p.small?' sm':'')+'"></div></div>'+
-    '<div class="info"><h2></h2><span class="host"></span></div>';
+    '<div class="info"><h2></h2><span class="note"></span><span class="host"></span></div>';
   a.querySelector(".glyph").textContent = p.glyph;
   a.querySelector("h2").textContent = p.name;
+  var nt = a.querySelector(".note"); if(p.note) nt.textContent = p.note; else nt.remove();
   a.querySelector(".host").textContent = host(p.url) + (p.alt ? "  ·  "+host(p.alt) : "");
   grid.appendChild(a);
 });
-
+ 
 // title letters hop on hover
 (function(){
   function wrap(node){
@@ -134,7 +137,7 @@ PROJECTS.forEach(function(p,i){
   }
   wrap($("#title"));
 })();
-
+ 
 // cursor glow, card tilt, poster parallax
 var glow = $("#glow"), mx = -999, my = -999, reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 addEventListener("pointermove", function(e){mx=e.clientX; my=e.clientY; glow.style.transform="translate("+mx+"px,"+my+"px)"});
@@ -149,7 +152,7 @@ grid.addEventListener("pointermove", function(e){
 grid.addEventListener("pointerout", function(e){
   var c = e.target.closest(".card"); if(c && !c.contains(e.relatedTarget)){c.style.transform="";c.style.setProperty("--px",0);c.style.setProperty("--py",0)}
 });
-
+ 
 // rain from the top of the screen, cursor pushes drops aside, ripples at the bottom
 (function(){
   var cv=$("#rain"), g=cv.getContext("2d"), W,H, drops=[], rip=[], col="#888";
@@ -189,7 +192,7 @@ grid.addEventListener("pointerout", function(e){
   }
   if(reduce){cv.style.display="none"} else frame();
 })();
-
+ 
 $("#theme").onclick = function(){
   var r=document.documentElement, dark=(r.dataset.theme? r.dataset.theme==="dark" : matchMedia("(prefers-color-scheme: dark)").matches);
   r.dataset.theme = dark?"light":"dark";
